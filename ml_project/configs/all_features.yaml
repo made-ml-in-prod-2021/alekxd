@@ -24,4 +24,6 @@ prepare_params:
 train_params:
   val_size: 0.2
   random_state: 42
+model_type: "LogisticRegression"
+model_params: '{"max_iter": 1000, "penalty":"l2"}'
 log_file:
