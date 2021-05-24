@@ -1,3 +1,8 @@
+### установка зависимостей
+```
+pip -r requirements.txt
+```
+
 ### запуск обучения
 ```
 python3 src/train.py configs/all_features.yaml
@@ -5,10 +10,12 @@ python3 src/train.py configs/all_features.yaml
 ```console
 (made) ad@AD:~/hw/ml_project$ python3 src/train.py configs/min_features.yaml
 INFO:root:converted data saved in: data/processed/train_data.pkl
-INFO:root:model validation score: 0.6739
+INFO:root:model type: RandomForestClassifier - {"n_estimators": 200, "max_depth": 5}
+INFO:root:model validation score: 0.6087
 INFO:root:model saved in: models/model.pkl
 (made) ad@AD:~/hw/ml_project$ python3 src/train.py configs/all_features.yaml
 INFO:root:converted data saved in: data/processed/train_data.pkl
+INFO:root:model type: LogisticRegression - {"max_iter": 1000, "penalty":"l2"}
 INFO:root:model validation score: 0.8478
 INFO:root:model saved in: models/model.pkl
 ```
