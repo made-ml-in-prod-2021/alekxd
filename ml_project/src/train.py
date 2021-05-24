@@ -1,3 +1,4 @@
+import json
 import pandas as pd
 import numpy as np
 import joblib
@@ -5,10 +6,16 @@ import logging
 import sys
 
 from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
 import utils
+
+model_type = {
+    'LogisticRegression': LogisticRegression,
+    'RandomForestClassifier': RandomForestClassifier,
+}
 
 def load_data(path):
     df = pd.read_csv(path)
@@ -46,8 +53,7 @@ def load_processed_data(path):
     return X, y 
 
 def train(X, y, params):        
-    model = LogisticRegression(max_iter=1000)
-    
+    model = model_type[params.model_type](**json.loads(params.model_params))
     X_train, X_val, y_train, y_val = train_test_split(
         X, y, 
         test_size=params.train_params.val_size, 
@@ -56,6 +62,7 @@ def train(X, y, params):
     
     model.fit(X_train, y_train)
     predicted = model.predict(X_val)
+    logging.info(f'model type: {params.model_type} - {params.model_params}')
     logging.info(f'model validation score: {accuracy_score(predicted, y_val):.4f}')
     
     return model

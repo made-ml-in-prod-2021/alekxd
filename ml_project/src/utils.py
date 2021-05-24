@@ -26,6 +26,8 @@ class Params:
     output_prediction_path: str
     prepare_params: PrepareParams
     train_params: TrainParams
+    model_type: str
+    model_params: str
     log_file: Optional[str]
 
 ParamsSchema = class_schema(Params)
