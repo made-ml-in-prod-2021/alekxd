@@ -35,6 +35,7 @@ app = FastAPI()
 with open(PATH_TO_MODEL, 'rb') as f:
     model = joblib.load(f)
 
+
 @app.get("/", response_class=HTMLResponse)
 async def read_root():
     return "heart disease prediction"
@@ -43,3 +44,4 @@ async def read_root():
 async def post_predict(item: Item):
     pred = model.predict([[item.age, item.chol, 0 if item.sex == 'm' else 1]])
     return {'target':str(pred)}
+
