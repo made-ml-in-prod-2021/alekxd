@@ -2,8 +2,9 @@ input_train_data_path: "data/raw/heart_train.csv"
 input_test_data_path: "data/raw/heart_test.csv"
 output_train_data_path: "data/processed/train_data.pkl"
 output_test_data_path: "data/processed/test_data.pkl"
-output_model_path: "models/model.pkl"
-output_prediction_path: "models/prediction.csv"
+output_model_path: "models/model_RF.pkl"
+output_prediction_path: "models/prediction_RF.csv"
+log_file_path:
 prepare_params:
   categorical_features:
     - "sex"
@@ -12,8 +13,7 @@ prepare_params:
     - "chol"
   target_col: "target"
 train_params:
+  model_type: "RandomForestClassifier"
+  model_params: '{"n_estimators": 200, "max_depth": 5}'
   val_size: 0.2
   random_state: 42
-model_type: "RandomForestClassifier"
-model_params: '{"n_estimators": 200, "max_depth": 5}'
-log_file:
