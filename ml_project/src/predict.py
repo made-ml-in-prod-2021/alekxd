@@ -1,7 +1,8 @@
 import sys
+import logging
 
 import utils
-from train import load_model, save_prediction, load_data, save_data, convert_df_to_numpy  
+from models import load_model, save_prediction, load_data, save_data, convert_df_to_numpy  
 
 if __name__ == "__main__":
     params = utils.read_params(sys.argv[1])
@@ -12,6 +13,9 @@ if __name__ == "__main__":
     save_data(data, params.output_test_data_path)
 
     X, _ = data
+    logging.info(f'inputs shape: {X.shape}')
     model = load_model(params.output_model_path)
+    logging.info(f'model: {model.__class__.__name__}')
+
     prediction = model.predict(X)
     save_prediction(prediction, params.input_test_data_path, params.output_prediction_path) 

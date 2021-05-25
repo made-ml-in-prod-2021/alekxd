@@ -6,17 +6,6 @@ import sys
 import logging
 
 @dataclass()
-class PrepareParams:
-    categorical_features: List[str]
-    numerical_features: List[str]
-    target_col: Optional[str]
-
-@dataclass()
-class TrainParams:
-    val_size: float = field(default=0.2)
-    random_state: int = field(default=255)
-
-@dataclass()
 class Params:
     input_train_data_path: str
     input_test_data_path: str
@@ -24,11 +13,22 @@ class Params:
     output_test_data_path: str
     output_model_path: str
     output_prediction_path: str
+    log_file_path: Optional[str]
+
+    @dataclass()
+    class PrepareParams:
+        categorical_features: List[str]
+        numerical_features: List[str]
+        target_col: Optional[str]    
     prepare_params: PrepareParams
+
+    @dataclass()
+    class TrainParams:
+        model_type: str
+        model_params: str
+        val_size: float = field(default=0.2)
+        random_state: int = field(default=255)
     train_params: TrainParams
-    model_type: str
-    model_params: str
-    log_file: Optional[str]
 
 ParamsSchema = class_schema(Params)
 
@@ -39,8 +39,8 @@ def read_params(path):
 
 def _init_logging(params):
     handlers = [logging.StreamHandler(sys.stdout)]
-    if params.log_file:
-        handlers += [logging.FileHandler(params.log_file)]
+    if params.log_file_path:
+        handlers += [logging.FileHandler(params.log_file_path)]
 
     logging.basicConfig(
         level=logging.INFO,     
