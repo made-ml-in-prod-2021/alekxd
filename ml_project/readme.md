@@ -1,6 +1,8 @@
-### установка зависимостей
+### создание виртуального окружения и установка зависимостей
 ```
-pip -r requirements.txt
+python3 -m venv .venv_hw1
+source .venv_hw1/bin/activate
+pip3 install -r requirements.txt
 ```
 
 ### запуск обучения
@@ -10,14 +12,16 @@ python3 src/train.py configs/all_features.yaml
 ```console
 (made) ad@AD:~/hw/ml_project$ python3 src/train.py configs/min_features.yaml
 INFO:root:converted data saved in: data/processed/train_data.pkl
-INFO:root:model type: RandomForestClassifier - {"n_estimators": 200, "max_depth": 5}
-INFO:root:model validation score: 0.6087
-INFO:root:model saved in: models/model.pkl
+IINFO:root:model type: RandomForestClassifier - {"n_estimators": 200, "max_depth": 5}
+INFO:root:inputs shape: (227, 3), (227,)
+INFO:root:model validation score: 0.5652
+INFO:root:model saved in: models/model_RF.pkl
 (made) ad@AD:~/hw/ml_project$ python3 src/train.py configs/all_features.yaml
 INFO:root:converted data saved in: data/processed/train_data.pkl
 INFO:root:model type: LogisticRegression - {"max_iter": 1000, "penalty":"l2"}
+INFO:root:inputs shape: (227, 22), (227,)
 INFO:root:model validation score: 0.8478
-INFO:root:model saved in: models/model.pkl
+INFO:root:model saved in: models/model_LR.pkl
 ```
 
 ### запуск предсказания 
@@ -27,10 +31,15 @@ python3 src/predict.py configs/all_features.yaml
 ```console
 (made) ad@AD:~/hw/ml_project$ python3 src/predict.py configs/min_features.yaml
 INFO:root:converted data saved in: data/processed/test_data.pkl
-INFO:root:prediction results saved in: models/prediction.csv
+INFO:root:inputs shape: (76, 3)
+INFO:root:model: RandomForestClassifier
+INFO:root:prediction results saved in: models/prediction_RF.csv
 (made) ad@AD:~/hw/ml_project$ python3 src/predict.py configs/all_features.yaml
 INFO:root:converted data saved in: data/processed/test_data.pkl
-INFO:root:prediction results saved in: models/prediction.csv
+INFO:root:inputs shape: (76, 22)
+INFO:root:model: LogisticRegression
+INFO:root:prediction results saved in: models/prediction_LR.csv
+
 ```
 
 ### САМООЦЕНКА 
